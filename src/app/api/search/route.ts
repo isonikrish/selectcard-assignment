@@ -3,7 +3,7 @@ import { cards } from "@/lib/cards";
 import { cardType } from "@/lib/types";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, res: Response) {
+export async function GET(req: NextRequest) {
   const query = req?.nextUrl?.searchParams.get("query");
   if (!query) {
     return NextResponse.json({ error: "Query is required" }, { status: 400 });
@@ -16,7 +16,7 @@ export async function GET(req: NextRequest, res: Response) {
     try {
       parsedResponse =
         typeof response === "string" ? JSON.parse(response) : response;
-    } catch (e) {
+    } catch {
       return NextResponse.json(
         { error: "Failed to parse AI response" },
         { status: 500 }
